@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Sản Phẩm</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="assets/image/Logooo.jpg" alt="Logo" width="50"> Shoe Store
+            </a>
+            <div class="ml-auto">
+                <a href="cart.html" class="btn btn-secondary">Giỏ hàng (<span id="cart-count">0</span>)</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <div id="productDetails"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2024 Shoe Store. Đổi trả miễn phí.</p>
+    </footer>
+
+    <script>
+        // Mảng chứa thông tin các sản phẩm
+        const products = [
+            {
+                id: 1,
+                name: "NIKE",
+                description: "Đôi giày bền đẹp, phong cách thể thao.",
+                price: 390000,
+                image: "assets/image/nịke.jpg",
+                category: "Mẫu giày",
+                size: "39",
+                color: "Vàng, Trắng",
+                stock: 20,
+                ratings: 4.5,
+                reviews: [
+                    { user: "Niko", comment: "Sản phẩm tuyệt vời, chất lượng rất tốt!", rating: 5 },
+                    { user: "Hennry", comment: "Đẹp và chắc chắn, nhưng hơi nhỏ.", rating: 4.5 }
+                ],
+                specifications: { material: "Vải bền, chất liệu cao cấp", weight: "350g", dimensions: "39", origin: "Việt Nam" }
+            },
+            {
+                id: 2,
+                name: "Adidas",
+                description: "Chất lượng vượt trội, thiết kế độc đáo. Được làm từ vật liệu cao cấp, đảm bảo an toàn cho mọi người.",
+                price: 200000,
+                image: "assets/image/resize.jpg",
+                category: "Mẫu giày",
+                size: "40",
+                color: "Trắng Đen",
+                stock: 15,
+                ratings: 4.7,
+                reviews: [
+                    { user: "Quỳnh Hoa", comment: "Rất thích sản phẩm này, rất bền và đẹp.", rating: 5 },
+                    { user: "Hữu Đức", comment: "Chất liệu rất tốt, tuy nhiên giá hơi cao.", rating: 4.9 }
+                ],
+                specifications: { material: "Vải bền, chất liệu cao cấp", weight: "350g", dimensions: "40", origin: "Việt Nam" }
+            },
+            {
+                id: 3,
+                name: "Gucci",
+                description: "Chất lượng vượt trội, thiết kế độc đáo. Được làm từ vật liệu cao cấp, đảm bảo an toàn cho mọi người.",
+                price: 459000,
+                image: "assets/image/gucci.jpg",
+                category: "Mẫu giày",
+                size: "40",
+                color: "Trắng, xanh, đỏ",
+                stock: 15,
+                ratings: 4.7,
+                reviews: [
+                    { user: "Thanh Lam", comment: "Rất thích sản phẩm này, rất bền và đẹp.", rating: 5 },
+                    { user: "Quỳnh Anh", comment: "Chất liệu rất tốt, tuy nhiên giá hơi cao.", rating: 4.9 }
+                ],
+                specifications: { material: "Vải bền, chất liệu cao cấp", weight: "350g", dimensions: "40", origin: "Việt Nam" }
+            },
+            {
+                id: 4,
+                name: "Gucci",
+                description: "Chất lượng vượt trội, thiết kế độc đáo. Được làm từ vật liệu cao cấp, đảm bảo an toàn cho mọi người.",
+                price: 179000,
+                image: "assets/image/conver.jpg",
+                category: "Mẫu giày",
+                size: "40",
+                color: "Đen, cam, trắng",
+                stock: 15,
+                ratings: 4.7,
+                reviews: [
+                    { user: "Huyền Trân", comment: "Rất thích sản phẩm này, rất bền và đẹp.", rating: 5 },
+                    { user: "Ngọc Thanh", comment: "Chất liệu rất tốt, giá ổn .", rating: 4.9 }
+                ],
+                specifications: { material: "Vải bền, chất liệu cao cấp", weight: "350g", dimensions: "40", origin: "Việt Nam" }
+            },
+            {
+                id: 5,
+                name: "Balenciaga",
+                description: "Chất lượng vượt trội, thiết kế độc đáo. Được làm từ vật liệu cao cấp, đảm bảo an toàn cho mọi người.",
+                price: 1000000,
+                image: "assets/image/balen.jpg",
+                category: "Mẫu giày",
+                size: "42",
+                color: "Xám",
+                stock: 15,
+                ratings: 4.7,
+                reviews: [
+                    { user: "Ngọc Hà", comment: "Rất thích sản phẩm này, rất bền và đẹp.", rating: 5 },
+                    { user: "Thu Thanh", comment: "Chất liệu rất tốt, giá hơi cao .", rating: 4.9 }
+                ],
+                specifications: { material: "Vải bền, chất liệu cao cấp", weight: "400g", dimensions: "42", origin: "Việt Nam" }
+            },
+            {
+                id: 6,
+                name: "Vans",
+                description: "Chất lượng vượt trội, thiết kế độc đáo. Được làm từ vật liệu cao cấp, đảm bảo an toàn cho mọi người.",
+                price: 1100000,
+                image: "assets/image/vans.jpg",
+                category: "Mẫu giày",
+                size: "41",
+                color: "Caro xanh",
+                stock: 15,
+                ratings: 4.7,
+                reviews: [
+                    { user: "Tuấn Tú", comment: "Rất thích sản phẩm này, rất bền và đẹp.", rating: 5 },
+                    { user: "Quốc Anh", comment: "Chất liệu rất tốt, giá hơi cao .", rating: 4.8 }
+                ],
+                specifications: { material: "Vải bền, chất liệu cao cấp", weight: "300g", dimensions: "41", origin: "Việt Nam" }
+            },
+            {
+                id: 7,
+                name: "Puma",
+                description: "Chất lượng vượt trội, thiết kế độc đáo. Được làm từ vật liệu cao cấp, đảm bảo an toàn cho mọi người.",
+                price: 1100000,
+                image: "assets/image/pumaaa.png",
+                category: "Mẫu giày",
+                size: "38",
+                color: "Xanh, đen",
+                stock: 15,
+                ratings: 4.7,
+                reviews: [
+                    { user: "Tuấn Tùng", comment: "Rất thích sản phẩm này, rất bền và đẹp.", rating: 5 },
+                    { user: "Quốc An", comment: "Chất liệu rất tốt, giá hơi cao .", rating: 4.8 }
+                ],
+                specifications: { material: "Vải bền, chất liệu cao cấp", weight: "300g", dimensions: "38", origin: "Việt Nam" }
+            },
+            {
+                id: 8,
+                name: "Reebook",
+                description: "Chất lượng vượt trội, thiết kế độc đáo. Được làm từ vật liệu cao cấp, đảm bảo an toàn cho mọi người.",
+                price: 1100000,
+                image: "assets/image/reeboookk.jpg",
+                category: "Mẫu giày",
+                size: "42",
+                color: "Trắng, đen",
+                stock: 15,
+                ratings: 4.7,
+                reviews: [
+                    { user: "Tuấn Tùng", comment: "Rất thích sản phẩm này, rất bền và đẹp.", rating: 5 },
+                    { user: "Quốc An", comment: "Chất liệu rất tốt, giá hơi cao .", rating: 4.8 }
+                ],
+                specifications: { material: "Vải bền, chất liệu cao cấp", weight: "300g", dimensions: "42", origin: "Việt Nam" }
+            }
+
+
+        ];
+
+        // Lấy tham số id từ URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = parseInt(urlParams.get('id'), 10);
+
+        // Tìm sản phẩm dựa trên id
+        const product = products.find(p => p.id === productId);
+
+        // Hiển thị thông tin chi tiết sản phẩm
+        const productDetails = document.getElementById('productDetails');
+        if (product) {
+            productDetails.innerHTML = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="${product.image}" class="img-fluid" alt="${product.name}">
+                    </div>
+                    <div class="col-md-6">
+                        <h1>${product.name}</h1>
+                        <p class="text-muted">Mã sản phẩm: BT0${product.id}</p>
+                        <p class="text-success fs-4">Giá: ${product.price.toLocaleString()} VND</p>
+                        <p>${product.description}</p>
+                        <p><strong>Danh mục:</strong> ${product.category}</p>
+                        <p><strong>Kích thước:</strong> ${product.size}</p>
+                        <p><strong>Màu sắc:</strong> ${product.color}</p>
+                        <p><strong>Số lượng còn lại:</strong> ${product.stock}</p>
+                        <p><strong>Đánh giá:</strong> ${product.ratings} sao</p>
+                        <button class="btn btn-primary btn-lg" id="add-to-cart">Thêm vào giỏ hàng</button>
+                    </div>
+                </div>
+                <h3>Đánh Giá</h3>
+                <div class="reviews">
+                    ${product.reviews.map(review => `
+                        <div class="review">
+                            <p><strong>${review.user}:</strong> ${review.comment}</p>
+                            <p><strong>Đánh giá:</strong> ${review.rating} sao</p>
+                        </div>
+                    `).join('')}
+                </div>
+                <h3>Thông Số Kỹ Thuật</h3>
+                <ul>
+                    <li><strong>Chất liệu:</strong> ${product.specifications.material}</li>
+                    <li><strong>Trọng lượng:</strong> ${product.specifications.weight}</li>
+                    <li><strong>Kích thước:</strong> ${product.specifications.dimensions}</li>
+                    <li><strong>Xuất xứ:</strong> ${product.specifications.origin}</li>
+                </ul>
+            `;
+
+            // Xử lý thêm vào giỏ hàng
+            document.getElementById('add-to-cart').addEventListener('click', function () {
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cart.push(product);
+                localStorage.setItem('cart', JSON.stringify(cart));
+
+                // Cập nhật số lượng trong giỏ hàng
+                const cartCount = cart.length;
+                document.getElementById('cart-count').textContent = cartCount;
+                alert('Sản phẩm đã được thêm vào giỏ hàng');
+            });
+        } else {
+            productDetails.innerHTML = "<p>Sản phẩm không tồn tại.</p>";
+        }
+    </script>
+</body>
+</html>
